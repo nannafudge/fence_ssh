@@ -1,7 +1,7 @@
 # fence_ssh
 Fencing agent that uses SSH, should only be used for testing.
 
-Can easily be modified so you only need one fence_ssh resource per cluster (remove hostname arg, change to nodename), although this means you can't use the monitor function and will have to comment it out.
+This is an alternate version of the agent that works using the nodename param that stonith-ng/pacemaker provides to fence machines. This means that you can deploy it on all nodes and not have to specify the hostname.
 
 # How to Use
 Place in /usr/sbin with execute permissions
@@ -14,7 +14,6 @@ Example usage with PCS:
 
 _Ensure that pcmk_host_list is defined so that Pacemaker knows which resource can fence which node_
 
-pcs stonith create stonith-one fence_ssh user=centos hostname=host1 password=Pa55w0rd sudo=true pcmk_host_list="host1"
-pcs stonith create stonith-two fence_ssh user=centos hostname=host2 password=Pa55w0rd sudo=true pcmk_host_list="host2"
-pcs constraint location add stonith-one-host-one stonith-one host1 INFINITY
-pcs constraint location add stonith-two-host-two stonith-two host2 INFINITY
+pcs stonith create stonith-ssh fence_ssh user=centos password=Pa55w0rd sudo=true pcmk_host_list="host1 host2"
+
+pcs resource clone stonith-ssh clone-max=2 clone-node-max=2
