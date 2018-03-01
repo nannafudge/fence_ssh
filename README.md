@@ -1,7 +1,7 @@
 # fence_ssh
 Fencing agent that uses SSH, should only be used for testing.
 
-Can easily be modified so you only need one fence_ssh resource per cluster (remove hostname arg, change to nodename), although this means you can't use the monitor function and will have to comment it out.
+The branch alternate_version contains a version of the agent that works using the nodename parameter instead (read the readme on that branch).
 
 # How to Use
 Place in /usr/sbin with execute permissions
